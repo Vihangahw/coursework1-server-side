@@ -3,7 +3,10 @@ from flask import Flask, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_login import LoginManager , UserMixin
+from dotenv import load_dotenv
+from werkzeug.security import generate_password_hash, check_password_hash
 
+load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -11,7 +14,7 @@ BASE_DIRECTORY = os.path.abspath(os.path.dirname(__file__))
 DATABASE_PATH = os.path.join(BASE_DIRECTORY, "database", "db.db")
 os.makedirs(os.path.dirname(DATABASE_PATH), exist_ok=True)
 app.config['SQLALCHEMY_DATABASE_URI']=f'sqlite:///{DATABASE_PATH}'
-app.config['SECRET_KEY']='4501232'
+app.config['SECRET_KEY']=os.getenv("BE_SECRET_KEY", "default")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
 db = SQLAlchemy(app)
@@ -22,11 +25,20 @@ loginManager.init_app(app)
 
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key=True, autoincrement=True)
-    username = db.Column(db.String(200))
-    email = db.Column(db.String(200))
+    username = db.Column(db.String(200), nullable=False)
+    email = db.Column(db.String(200), unique=True, nullable=False)
     password = db.Column(db.String(200))
 
-@app.route("/")
+@loginManager.user_loader
+def get(id):
+    return User.query.get(id)
+
+
+
+
+
+@app.route("/",methods=['GET'])
+@login_Required
 def cw():
     print("Coursework 1 Work - Terminal")
     return "CW1 APIs"
