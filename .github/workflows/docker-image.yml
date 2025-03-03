@@ -25,5 +25,5 @@ jobs:
       run: |
         IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/w1867178"
         TAG="latest"
-        docker build -t $IMAGE_NAME:$TAG .
+        docker build -t $IMAGE_NAME:$TAG -f Backend/Dockerfile Backend
         docker push $IMAGE_NAME:$TAG
