@@ -6,3 +6,4 @@ db.db
 *.iml
 *.sqlite
 .idea
+project-structure.txt
