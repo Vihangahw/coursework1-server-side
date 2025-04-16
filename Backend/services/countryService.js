@@ -14,7 +14,7 @@ const getCleanCountryData = async () => {
             flag: country.flags?.png || 'N/A',
         }));
     } catch (err) {
-        console.error("Error fetching from RestCountries API:", err.message);
+        console.error("Error fetching data from RestCountries API:", err.message);
         throw err;
     }
 };
