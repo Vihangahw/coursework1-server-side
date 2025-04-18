@@ -6,7 +6,7 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/app
-      - ./db.db:/app/db.db
+      - ./db.db:/db.db
     environment:
       - NODE_ENV=development
 
