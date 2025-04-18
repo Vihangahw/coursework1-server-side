@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: ./backend
+    container_name: cw1-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - ./db.db:/db.db
+    environment:
+      - NODE_ENV=development
+
+  frontend:
+    build: ./frontend
+    container_name: cw1-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
