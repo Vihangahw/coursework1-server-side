@@ -1,3 +1,9 @@
 bEnd-venv/
 __pycache__/
 be.env 
+
+db.db
+*.iml
+*.sqlite
+.idea
+project-structure.txt
