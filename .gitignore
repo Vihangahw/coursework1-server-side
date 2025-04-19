@@ -1,8 +1,7 @@
 bEnd-venv/
 __pycache__/
 be.env 
-
-
+*.db
 *.iml
 
 .idea
