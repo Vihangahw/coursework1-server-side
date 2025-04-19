@@ -23,21 +23,22 @@ This project contains a secure API middleware service that interfaces with [Rest
    ```bash
    git clone https://github.com/Vihangahw/coursework1-server-side.git
    cd COURSEWORK1-SERVER-SIDE
-2. **Start the Application**:
+2. **Create the Database**
+   ```bash
+   ./dbcreate.sh
+3. **Start the Application** :
 
     ```bash
    docker-compose up --build
-   
+### **Seperate access of Front End and Back End**
 
-**Seperate access of Front End and Back End**
-
-Backend: http://localhost:3000 <br>
-Frontend: http://localhost:5173 <br>
+- Backend: http://localhost:3000 <br>
+- Frontend: http://localhost:5173 <br>
 
 **To Access the Application**
-Visit http://localhost:5173 to register and use the app with a new or existing user.
+Visit http://localhost:5173 to register and use the app with a new or existing user once you start the application.
 
-**Stopping**:
+- **Stopping**:
 
  ```bash
  docker-compose down
