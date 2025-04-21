@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+const apiLogger = require('./middleware/apiLogger');
 const helmet = require("helmet");
 const dotenv = require("dotenv");
 const path = require("path");
@@ -34,6 +35,8 @@ app.use(
         },
     })
 );
+
+app.use(apiLogger); 
 
 // Import routes
 const authRoutes = require("./routes/authRoutes");
