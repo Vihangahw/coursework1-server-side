@@ -27,6 +27,7 @@ This project contains a secure API middleware service that interfaces with [Rest
    ```bash
    ./dbcreate.sh
 3. **Start the Application** :
+(Make sure docker is Up and Running)
 
     ```bash
    docker-compose up --build
