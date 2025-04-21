@@ -10,7 +10,8 @@ function CountrySearch() {
     const handleSearch = async () => {
         try {
             const res = await axios.get(`http://localhost:3000/api/country?name=${name}`, {
-                params: { apiKey: user?.apiKey }
+                params: { apiKey: user?.apiKey },
+                withCredentials: true,
             });
             setResult(res.data);
             setMessage('');
