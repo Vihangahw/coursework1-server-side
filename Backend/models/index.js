@@ -5,10 +5,10 @@ const ApiUsageLog = require('./ApiUsageLog');
 const initializeDatabase = async () => {
     try {
         await database.authenticate();
-        console.log('Connected to SQLite database');
+        console.log('Connected to database');
 
         await database.sync({ alter: true }); 
-        console.log('All models synced successfully');
+        console.log('synced successfully');
     } catch (error) {
         console.error('Database connection error:', error);
     }

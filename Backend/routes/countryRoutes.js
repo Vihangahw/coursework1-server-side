@@ -40,17 +40,34 @@ router.get('/countries', async (req, res) => {
 
 router.get('/country', async (req, res) => {
     try {
+        const sessionUserId = req.session.userId;
+        const apiKey = req.query.apiKey;
         const countryName = req.query.name;
+        let userId = null;
 
         if (!countryName) {
-            return res.status(400).json({ message: 'Country name is required as query param: ?name=' });
+            return res.status(400).json({ message: 'Country name is required' });
+        }
+
+        if (!sessionUserId && !apiKey) {
+            return res.status(401).json({ message: 'INVALID. Please log in or provide a valid API key.' });
+        }
+
+        if (apiKey) {
+            const user = await RegisteredUser.findOne({ where: { apiKey } });
+            if (!user) {
+                return res.status(403).json({ message: 'Invalid API key.' });
+            }
+            userId = user.userId;
+        } else {
+            userId = sessionUserId;
         }
 
         const url = `https://restcountries.com/v3.1/name/${encodeURIComponent(countryName)}?fullText=true&fields=name,capital,currencies,languages,flags`;
 
         const response = await axios.get(url);
+        const country = response.data[0];
 
-        const country = response.data[0]; // get tje only match
         const countryDetails = {
             name: country.name?.common || 'N/A',
             capital: country.capital?.[0] || 'N/A',
@@ -59,13 +76,14 @@ router.get('/country', async (req, res) => {
             flag: country.flags?.png || 'N/A',
         };
 
+        
+
         res.status(200).json(countryDetails);
 
     } catch (err) {
-        console.error("Country lookup error:", err.message);
-        res.status(404).json({ message: "Country not found or error fetching data." });
+        console.error("Country checkingout error:", err.message);
+        res.status(404).json({ message: "Error" });
     }
 });
-
 
 module.exports = router;
